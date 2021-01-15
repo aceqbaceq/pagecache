@@ -37,6 +37,12 @@ log_file=$log_folder/pagecache.log
     fi
 
 
+# проверяем наличие точки монтирования как таковой
+if  [[ ($(df -h | grep "$overlay_partition" | wc -l)  ==  0 ) ]]
+then
+    echo "WARNING. оверлей раздел непримонтирован" >> "$log_file"; exit 0
+fi
+
 
 
 # сколько места сейчас осталось на upper разделе
