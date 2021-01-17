@@ -41,7 +41,7 @@ then
 fi
 
 
-nfs-server_point="$root_folder/merged"
+#nfs-server_point="$root_folder/merged"
 
 # отмонтируем overlay
 # если отмонтировать нечего то изначально чтото нетак и скрипт выдаст автомтом ошибку и прекратит дальнейшее исполнение

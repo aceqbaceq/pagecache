@@ -50,15 +50,22 @@ service nfs-server stop
 
 ## монтируем
 # 	монтируем upper
+if  [[ ($(df -h | grep "$root_folder/upper" | wc -l)  ==  0 ) ]]
+then
 mount -o noatime,data=ordered $L1 $root_folder/upper
 chown nobody.nogroup $root_folder/upper
+fi
 
 # 	монтируем lower
 mnt_point=$lowerdir
+if  [[ ($(df -h | grep "$mnt_point" | wc -l)  ==  0 ) ]]
+then
 mount -o noatime,data=ordered $U1 $mnt_point
 chown nobody.nogroup $mnt_point
 mount -o noatime,data=ordered --bind $mnt_point/upper $mnt_point
 chown nobody.nogroup $mnt_point
+fi
+
 
 # 	монтируем overlay
 mount -t overlay -o index=on,redirect_dir=nofollow,nfs_export=on,noatime,lowerdir=$lowerdir,upperdir=$upperdir,workdir=$workdir  none $mergedir
