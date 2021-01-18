@@ -8,11 +8,10 @@
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 
-exit 0
 
 # пороговое значение в % свободного места 
 # при котором мы будем переключаться на другой снэпшот
-freespace_minimum=50
+freespace_minimum=10
 
 # папка точки монтирования с upper  разделом overlay
 overlay_partition="/mnt/overlay1/merged"
@@ -42,7 +41,7 @@ log_file=$log_folder/pagecache.log
 # проверяем наличие точки монтирования как таковой
 if  [[ ($(df -h | grep "$overlay_partition" | wc -l)  ==  0 ) ]]
 then
-    echo "WARNING. оверлей раздел непримонтирован" >> "$log_file"; exit 0
+    echo "$(date)  WARNING. оверлей раздел непримонтирован" >> "$log_file"; exit 0
 fi
 
 
