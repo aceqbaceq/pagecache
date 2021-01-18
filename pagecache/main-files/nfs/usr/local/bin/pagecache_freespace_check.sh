@@ -11,7 +11,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/
 
 # пороговое значение в % свободного места 
 # при котором мы будем переключаться на другой снэпшот
-freespace_minimum=10
+freespace_minimum=5
 
 # папка точки монтирования с upper  разделом overlay
 overlay_partition="/mnt/overlay1/merged"
