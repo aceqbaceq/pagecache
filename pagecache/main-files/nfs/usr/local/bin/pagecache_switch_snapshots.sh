@@ -111,15 +111,12 @@ chown nobody.nogroup $mnt_point
 
 
 # все готово. монтируем overlay
-mount -t overlay -o noatime,lowerdir=$lowerdir,upperdir=$upperdir,workdir=$workdir  none $mergedir
+mount -t overlay -o index=on,redirect_dir=nofollow,nfs_export=on,noatime,lowerdir=$lowerdir,upperdir=$upperdir,workdir=$workdir  none $mergedir
 chmod 777 $mergedir
 chown nobody.nogroup $mergedir
 
 # стартуем nfs-server
-service="nfs-server"
-if [ -f "/etc/init.d/$service" ]; then
     service nfs-server start
-fi
 
 
 # далее нужно записать файл с settings который можно прочитать запустить после перезагрузки ОС и на основе него потом смонтировать overlay раздел
