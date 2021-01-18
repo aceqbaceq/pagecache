@@ -54,10 +54,24 @@ if  [[ ($(df -h | grep "$root_folder/upper" | wc -l)  ==  0 ) ]]
 then
 mount -o noatime,data=ordered $L1 $root_folder/upper
 chown nobody.nogroup $root_folder/upper
-# создаем в нем подпапки $upperdir  $workdir
+# создаем в нем подпапки $upperdir  $workdir 
+# если их нет
 upperdir=$root_folder/upper/upper
 workdir=$root_folder/upper/workdir
-mkdir $upperdir $workdir
+    #
+    mnt_point=$upperdir
+    if [[ ! -d $mnt_point ]]
+    then
+        mkdir $mnt_point
+	chown nobody.nogroup $mnt_point
+    fi
+    #
+    mnt_point=$workdir
+    if [[ ! -d $mnt_point ]]
+    then
+        mkdir $mnt_point
+	chown nobody.nogroup $mnt_point
+    fi
 fi
 
 
@@ -80,11 +94,11 @@ fi
 
 # 	монтируем overlay
 mount -t overlay -o index=on,redirect_dir=nofollow,nfs_export=on,noatime,lowerdir=$lowerdir,upperdir=$upperdir,workdir=$workdir  none $mergedir
-#chmod 777 $mergedir
-#chown nobody.nogroup $mergedir
+chmod 777 $mergedir
+chown nobody.nogroup $mergedir
 
 ## запустить nfs-server
-#service nfs-server start
+service nfs-server start
 
 
 
