@@ -87,6 +87,7 @@ mnt_point="$root_folder/upper"
 
 # форматируем бывший lower
 mkfs.ext4 -F $L1 1>/dev/null 2>&1
+tune2fs -r 500000 $L1 1>/dev/null
 
 
 # монтируем бывший lower теперь уже в upper
